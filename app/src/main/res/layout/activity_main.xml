@@ -95,16 +95,18 @@
             android:id="@+id/btn_previous"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_previous"
-            android:tint="@android:color/white"
+
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
         <ImageButton
             android:id="@+id/btn_play_pause"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_play"
-            android:tint="@android:color/white"
+
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"/>
@@ -113,8 +115,9 @@
             android:id="@+id/btn_next"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="TODO"
             android:src="@drawable/ic_next"
-            android:tint="@android:color/white"
+
             android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 </RelativeLayout>
