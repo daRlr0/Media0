@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient" >
 
-    <!-- Обложка альбома -->
+
     <ImageView
         android:id="@+id/album_art"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/music"
+        android:src="@drawable/bar1"
         android:layout_marginTop="60dp"/>
 
-    <!-- Название песни -->
+
     <TextView
         android:id="@+id/song_title"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:fontFamily="sans-serif-medium"
         android:layout_marginTop="20dp"/>
 
-    <!-- Имя исполнителя -->
+
     <TextView
         android:id="@+id/artist_name"
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:textSize="16sp"
         android:layout_marginTop="10dp"/>
 
-    <!-- SeekBar для прогресса песни -->
+
     <SeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:progressDrawable="@drawable/custom_seekbar"
         android:thumb="@drawable/custom_thumb"/>
 
-    <!-- Тайминг начала и конца песни -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
 
     </LinearLayout>
 
-    <!-- Кнопки управления -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

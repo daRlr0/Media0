@@ -1,4 +1,5 @@
 package com.example.media_play;
+import android.widget.ImageView;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -21,15 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Runnable updateSeekBar;
 
-    private List<Track> trackList; // Список треков
-    private int currentTrackIndex = 0; // Индекс текущего трека
+    private List<Track> trackList;
+    private int currentTrackIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Инициализация виджетов
+
         playPauseButton = findViewById(R.id.btn_play_pause);
         nextButton = findViewById(R.id.btn_next);
         previousButton = findViewById(R.id.btn_previous);
@@ -39,18 +40,19 @@ public class MainActivity extends AppCompatActivity {
         startTime = findViewById(R.id.start_time);
         endTime = findViewById(R.id.end_time);
 
-        // Настройка треков
-        trackList = new ArrayList<>();
-        trackList.add(new Track(R.raw.coldplay, "Название Песни 1", "Исполнитель 1"));
-        trackList.add(new Track(R.raw.indila, "Название Песни 2", "Исполнитель 2"));
-        trackList.add(new Track(R.raw.madcon, "Название Песни 3", "Исполнитель 3"));
 
-        // Настройка MediaPlayer
-        mediaPlayer = MediaPlayer.create(this, trackList.get(currentTrackIndex).getResourceId()); // Используем первый трек
+        trackList = new ArrayList<>();
+        trackList.add(new Track(R.raw.coldplay, "Название Песни 1", "Исполнитель 1", R.drawable.bar1));
+        trackList.add(new Track(R.raw.madcon, "Название Песни 2", "Исполнитель 2", R.drawable.bar2));
+        trackList.add(new Track(R.raw.indila, "Название Песни 3", "Исполнитель 3", R.drawable.bar3));
+
+
+
+        mediaPlayer = MediaPlayer.create(this, trackList.get(currentTrackIndex).getResourceId());
         seekBar.setMax(mediaPlayer.getDuration());
         endTime.setText(formatTime(mediaPlayer.getDuration()));
 
-        // Обновление времени и прогресса SeekBar
+
         updateSeekBar = new Runnable() {
             @Override
             public void run() {
@@ -64,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(updateSeekBar, 1000);
 
-        // Обновление названия песни и исполнителя
+
         songTitle.setText(trackList.get(currentTrackIndex).getTitle());
         artistName.setText(trackList.get(currentTrackIndex).getArtist());
 
-        // Кнопка Play/Pause
+
         playPauseButton.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
@@ -79,19 +81,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Кнопка Next
+
         nextButton.setOnClickListener(v -> {
-            currentTrackIndex = (currentTrackIndex + 1) % trackList.size(); // Переход к следующему треку
+            currentTrackIndex = (currentTrackIndex + 1) % trackList.size();
             playNewTrack();
         });
 
-        // Кнопка Previous
+
         previousButton.setOnClickListener(v -> {
-            currentTrackIndex = (currentTrackIndex - 1 + trackList.size()) % trackList.size(); // Переход к предыдущему треку
+            currentTrackIndex = (currentTrackIndex - 1 + trackList.size()) % trackList.size();
             playNewTrack();
         });
 
-        // SeekBar изменения вручную
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -108,24 +110,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Метод для воспроизведения нового трека
+
     private void playNewTrack() {
-        mediaPlayer.reset(); // Сбрасываем состояние MediaPlayer
-        mediaPlayer = MediaPlayer.create(this, trackList.get(currentTrackIndex).getResourceId()); // Загружаем новый трек
+        mediaPlayer.reset();
+        mediaPlayer = MediaPlayer.create(this, trackList.get(currentTrackIndex).getResourceId());
         seekBar.setMax(mediaPlayer.getDuration());
         endTime.setText(formatTime(mediaPlayer.getDuration()));
-        mediaPlayer.start(); // Начинаем воспроизведение нового трека
-        playPauseButton.setImageResource(R.drawable.ic_pause); // Меняем кнопку на паузу
+        mediaPlayer.start();
+        playPauseButton.setImageResource(R.drawable.ic_pause);
 
-        // Обновление названий песни и исполнителя
+        // Обновляем текст
         songTitle.setText(trackList.get(currentTrackIndex).getTitle());
         artistName.setText(trackList.get(currentTrackIndex).getArtist());
 
-        // Обновление прогресса SeekBar
+        // Обновляем обложку альбома
+        ImageView albumArt = findViewById(R.id.album_art);
+        albumArt.setImageResource(trackList.get(currentTrackIndex).getAlbumArtId());
+
         handler.postDelayed(updateSeekBar, 1000);
     }
 
-    // Форматирование времени (минута:секунда)
+
+
     private String formatTime(int millis) {
         int minutes = (millis / 1000) / 60;
         int seconds = (millis / 1000) % 60;

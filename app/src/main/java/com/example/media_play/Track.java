@@ -2,17 +2,17 @@ package com.example.media_play;
 
 public class Track {
     private int resourceId; // ID ресурса аудиофайла
-    private String title; // Название песни
-    private String artist; // Имя исполнителя
+    private String title;
+    private String artist;
+    private int albumArtId; // ID ресурса изображения обложки
 
-    // Конструктор
-    public Track(int resourceId, String title, String artist) {
+    public Track(int resourceId, String title, String artist, int albumArtId) {
         this.resourceId = resourceId;
         this.title = title;
         this.artist = artist;
+        this.albumArtId = albumArtId;
     }
 
-    // Геттеры
     public int getResourceId() {
         return resourceId;
     }
@@ -23,6 +23,10 @@ public class Track {
 
     public String getArtist() {
         return artist;
+    }
+
+    public int getAlbumArtId() {
+        return albumArtId;
     }
 }
 
